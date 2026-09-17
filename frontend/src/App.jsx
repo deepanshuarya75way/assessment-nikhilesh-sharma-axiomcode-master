@@ -1,0 +1,63 @@
+
+import Homepage from "./pages/Homepage"
+import Login from "./pages/Login"
+import Signup from "./pages/Signup"
+import {Routes, Route, Navigate } from "react-router";
+import { checkAuth } from "./authSlice";
+import { useDispatch,useSelector } from "react-redux";
+
+import { useEffect , useState} from "react";
+import CreateProblem from "./components/Adminpanel"
+import DeleteProblem from "./components/Deletepanel"
+import AdminVideo from "./components/Adminvideo"
+import ProblemPage from "./pages/Problempage"
+import Admin from "./pages/Admin";
+import UpdateProblem from "./components/Codepanel";
+import AdminUpload from "./components/AdminUpload"
+import AdminRegister from "./components/Adminregister";
+import Potd from "./pages/Potd";
+import Profilepage from "./pages/Profilepage";
+import ContestPage from "./pages/Contest";
+
+function App() {
+  
+  const {isAuthenticated,loading,user}=useSelector((state)=>state.auth) 
+  const [activeTab, setActiveTab] = useState(!user ? 'about' : 'problems');
+  const dispatch=useDispatch();
+
+  useEffect(()=>{
+    dispatch(checkAuth()); 
+  },[dispatch])
+
+  if(loading){
+    return<div className="min-h-screen flex items-center justify-center">
+      <span className="loading loading-spinner loading-lg"></span>
+    </div>
+  }
+
+  return (
+    <>
+      <Routes>  
+        <Route path="/login" element={isAuthenticated ?<Navigate to="/"/> :<Login></Login>}></Route>
+        <Route path="/signup" element={isAuthenticated?<Navigate to="/"/> :<Signup></Signup>}></Route>
+        <Route path="/" element={user?.role === 'admin' ? <Navigate to="/admin" /> : <Homepage activeTab={activeTab} setActiveTab={setActiveTab} />} />
+        
+        <Route path="/admin" element={isAuthenticated && user.role==='admin' ?<Admin></Admin>:<Navigate to="/signup"/>}></Route>
+        <Route path="/admin/register" element={isAuthenticated && user.role==='admin'?<AdminRegister></AdminRegister>:<Navigate to="/"/>}></Route>
+        <Route path="/admin/create" element={isAuthenticated && user.role==='admin'?<CreateProblem/>:<Navigate to="/"/>}></Route>
+        <Route path="/admin/delete" element={isAuthenticated && user.role==='admin'?<DeleteProblem/>:<Navigate to="/"/>}></Route>
+        <Route path="/admin/update/:id" element={isAuthenticated && user.role==='admin'?<UpdateProblem/>:<Navigate to="/"/>} ></Route>
+
+        <Route path="/admin/video" element={isAuthenticated && user?.role === 'admin' ? <AdminVideo /> : <Navigate to="/" />} />
+        <Route path="/admin/upload/:problemId" element={isAuthenticated && user?.role === 'admin' ? <AdminUpload /> : <Navigate to="/" />} />
+        <Route path="/problem/:problemId" element={isAuthenticated?<ProblemPage/>:<Navigate to="/login"/>}></Route>
+        
+        <Route path="/potd" element={<Potd activeTab={activeTab} setActiveTab={setActiveTab} user={user}/>}></Route>
+        <Route path="/profile" element={<Profilepage activeTab={activeTab} setActiveTab={setActiveTab} user={user}/>}></Route>
+        <Route path="/contest" element={<ContestPage activeTab={activeTab} setActiveTab={setActiveTab} user={user}/>}></Route>
+      </Routes>
+    </>
+  )
+}
+
+export default App
