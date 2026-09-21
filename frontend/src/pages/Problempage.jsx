@@ -94,9 +94,7 @@ function ProblemPage() {
             language: selectedLanguage,
         });
         setRunResult(res.data.results);
-        if(runResult.recomend){
-          alert(`${runResult.recomend}`)    //TASK1 
-        }
+       
     } catch (err) {
         if (err.response && err.response.status === 429) {
             alert("Opps! You are submitting too fast. Please wait a minute.");
@@ -122,7 +120,8 @@ function ProblemPage() {
         language: selectedLanguage,
       });
       setRunResult(res.data.results);
-
+       //TASK1 
+        
       
       if (res.data && matchId) {
         if (res.data.results?.status === 'accepted') {

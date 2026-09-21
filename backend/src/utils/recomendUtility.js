@@ -1,4 +1,5 @@
 const { GoogleGenAI } = require("@google/genai");
+const Recomend=require("../models/recommendation");
 const getRecomendation = async (req, res) => {
 try {
 const {title, code,description,results } = req.body;

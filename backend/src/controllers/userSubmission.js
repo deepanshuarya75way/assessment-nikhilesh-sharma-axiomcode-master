@@ -127,10 +127,12 @@ const submitCode = async (req, res) => {
 
         console.log(numberOfTestCasesPassed);
 
-     
-        
-        const recomendResult=getRecomendation(title,code,description,results,template_codes);  //TASK1
-          const results = {
+         //TASK1
+        console.log("---->")
+        const recomendResult=await getRecomendation(problem.title,code,description,results,template_codes);  
+        const recomend=recomendResult.message.description || " ";
+        console.log(recomend)
+        const results = {
             total: problem.hiddenTestCases.length,
             passed: numberOfTestCasesPassed,
             runtime: runTime,
@@ -139,7 +141,7 @@ const submitCode = async (req, res) => {
             output: output,
             error: errorMessage,
             detail: detail,
-            recomend: recomendResult.description,
+            recomend:recomend  
         }
         res.status(200).json({
             results: results,
