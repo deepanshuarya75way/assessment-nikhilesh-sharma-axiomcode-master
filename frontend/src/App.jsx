@@ -18,6 +18,8 @@ import AdminRegister from "./components/Adminregister";
 import Potd from "./pages/Potd";
 import Profilepage from "./pages/Profilepage";
 import ContestPage from "./pages/Contest";
+import Recomend from "./pages/Recomend";   //task1
+
 
 function App() {
   
@@ -53,6 +55,7 @@ function App() {
         <Route path="/problem/:problemId" element={isAuthenticated?<ProblemPage/>:<Navigate to="/login"/>}></Route>
         
         <Route path="/potd" element={<Potd activeTab={activeTab} setActiveTab={setActiveTab} user={user}/>}></Route>
+        <Route path="/recomendations" element={<Recomend activeTab={activeTab} setActiveTab={setActiveTab} user={user}/>}></Route>
         <Route path="/profile" element={<Profilepage activeTab={activeTab} setActiveTab={setActiveTab} user={user}/>}></Route>
         <Route path="/contest" element={<ContestPage activeTab={activeTab} setActiveTab={setActiveTab} user={user}/>}></Route>
       </Routes>

@@ -5,6 +5,7 @@ const Submission = require("../models/submission");
 const PotdStore = require('../models/potdStore');
 const adminMiddleware = require("../middlewares/adminMiddleware");
 const SolutionVideo = require("../models/solutionVideo")
+const Recomend=require("../models/recommendation")
 
 const createProblem=async(req,res)=>{
     const {title,description,difficulty,tags,visibleTestCases,hiddenTestCases,startCode,referenceSolution,problemCreator}=req.body;
@@ -240,7 +241,22 @@ const getProblemOfTheDay = async (req, res) => {
         return res.status(500).send("Error: " + err.message);
     }
 };
-module.exports={createProblem,updateProblem,deleteProblem,getProblemById,getAllProblem,getSolvedProblemsByUser,getSubmittedProblems,getProblemOfTheDay};
+
+const getAllRecomendations=async(req,res)=>{
+    try{
+       
+        const getRecomendations=await Recomend.find({}).select('_id problemName description');
+        if(getRecomendations.length==0){
+            return res.status(200).json([]); 
+        }
+        
+        res.status(200).json(getRecomendations);
+    }catch(err){
+        res.status(500).json({ message: "Internal Server Error", error: err.message });
+    }
+}
+
+module.exports={createProblem,updateProblem,deleteProblem,getProblemById,getAllProblem,getSolvedProblemsByUser,getSubmittedProblems,getProblemOfTheDay,getAllRecomendations};
 
 
 // -d '{

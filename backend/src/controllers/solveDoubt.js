@@ -1,4 +1,5 @@
 const { GoogleGenAI } = require("@google/genai");
+const Recomend=require("../models/recommendation");
 const solveDoubt = async (req, res) => {
 try {
 const { message, title, description, startCode } = req.body;
@@ -33,7 +34,9 @@ async function main() {
         }
     });
 
+ 
 
+    
     res.status(201).json({
         message: response.text
     });
@@ -48,6 +51,7 @@ res.status(500).json({
     message: "Internal Server Error"
 });
 }}
+
 
 module.exports = solveDoubt;
 

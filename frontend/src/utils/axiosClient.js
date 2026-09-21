@@ -2,8 +2,8 @@
 import axios from "axios"
 
 const axiosClient= axios.create({
-    baseURL: "https://axiomcode-backend-1.onrender.com",
-    // baseURL: "http://localhost:3000",
+    // baseURL: "https://axiomcode-backend-1.onrender.com",
+    baseURL: "http://localhost:3000",
     
     withCredentials:true,
     headers: { 

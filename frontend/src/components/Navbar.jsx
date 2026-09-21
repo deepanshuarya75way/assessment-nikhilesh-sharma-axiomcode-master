@@ -93,6 +93,18 @@ const Navbar = ({ activeTab, setActiveTab, user, handleLogout }) => {
         >
           POTD
         </Link>
+
+        <Link 
+          to="/recomendations"
+          onClick={() => setActiveTab('recomendations')}
+          className={`cursor-pointer transition-colors pb-1 ${
+            activeTab === 'recomendations' 
+              ? 'text-primary font-bold border-b-2 border-primary' 
+              : activeTab === 'about' ? 'text-zinc-400 hover:text-zinc-100' : 'text-base-content/70 hover:text-base-content'
+          }`}
+        >
+          RECOMENDATIONS
+        </Link>
       </div>
 
      

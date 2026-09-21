@@ -1,6 +1,7 @@
 const Submission = require('../models/submission');
 const Problem=require('../models/problem');
 const {executeCode,checkOutput}=require("../utils/problemUtility");
+const getRecomendation=require("../utils/recomendUtility")
 const PotdStore = require('../models/potdStore');
 
 const submitCode = async (req, res) => {
@@ -15,7 +16,7 @@ const submitCode = async (req, res) => {
 
         //fetch problem from database 
         const problem = await Problem.findById(problemId);
-
+        const description=problem.description;//TASK1
         console.log(problem.title)
   
 
@@ -137,6 +138,18 @@ const submitCode = async (req, res) => {
             detail: detail
         }
         
+        const recomendResult=getRecomendation(title,code,description,results,template_codes);  //TASK1
+          const results = {
+            total: problem.hiddenTestCases.length,
+            passed: numberOfTestCasesPassed,
+            runtime: runTime,
+            memoryUsage: memoryUsage,
+            status: status,
+            output: output,
+            error: errorMessage,
+            detail: detail,
+            recomend: recomendResult.description,
+        }
         res.status(200).json({
             results: results,
             message: "Given solution added to submission database"
