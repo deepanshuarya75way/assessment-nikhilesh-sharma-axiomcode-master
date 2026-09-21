@@ -14,5 +14,5 @@ const recomendSchema=new Schema({
     timestamps:true
 });
 
-const Recomend=mongose.model('recomendation',recomendSchema);
+const Recomend=mongoose.model('recomendation',recomendSchema);
 module.exports=Recomend;

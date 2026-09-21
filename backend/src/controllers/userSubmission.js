@@ -127,16 +127,7 @@ const submitCode = async (req, res) => {
 
         console.log(numberOfTestCasesPassed);
 
-        const results = {
-            total: problem.hiddenTestCases.length,
-            passed: numberOfTestCasesPassed,
-            runtime: runTime,
-            memoryUsage: memoryUsage,
-            status: status,
-            output: output,
-            error: errorMessage,
-            detail: detail
-        }
+     
         
         const recomendResult=getRecomendation(title,code,description,results,template_codes);  //TASK1
           const results = {
